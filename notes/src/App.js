@@ -1,43 +1,37 @@
-import { useState } from "react";
 import "./App.css";
 import NotesContainer from "./components/NotesContainer.js";
 import InputField from "./components/InputFIeld";
+import ButtonComponent from "./components/ButtonComponent";
+import { useState } from "react";
 
 function App() {
-  const [notes, setNotes] = useState([
-    { id: 1, text: "A" },
-    { id: 2, text: "A" },
-  ]);
+  const [components, setComponents] = useState([1]);
 
-  /*  const changeInputNote = (id, event) => {
+  function addNewNote() {
+    setComponents([...components, Math.max(...components) + 1]);
+  }
+
+  function deleteNote(id) {
     console.log(id);
-    console.log(event.target);
-    setNotes(
-      notes.map((note) => {
-        if (note.id === id) {
-          return { ...note, text: event.target.value };
-        } else {
-          return note;
-        }
-      })
-    ); 
-  }; */
+    //problem, wenn etwas gelöscht wird, verschiebt sich der array!!!!!
+    let array = components.filter((component) => component !== id);
+    console.log(array);
+    setComponents(array);
+    console.log(components);
+   }
 
   return (
     <div className="App">
-      {notes.map((note) => (
-        <NotesContainer>
-          {note.text}
-          <InputField
-            id={note.id}
-            value={note.text}
-            onPress={(event) => {
-              console.log(event.target.value);
-              /*               changeInputNote(note.id);
-               */
-            }}
-          />
-        </NotesContainer>
+      <ButtonComponent onPress={() => addNewNote()}>Add</ButtonComponent>
+      {components.map((component) => (
+        <div id={component}>
+          <NotesContainer>
+            <InputField />
+            <ButtonComponent onPress={() => deleteNote(component)}>
+              Delete
+            </ButtonComponent>
+          </NotesContainer>
+        </div>
       ))}
     </div>
   );
