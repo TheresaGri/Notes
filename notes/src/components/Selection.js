@@ -1,10 +1,12 @@
 import "./Selection.css";
 
-export default function Selection({onPress, classOfOptions}) {
+export default function Selection({ select, changeCategory }) {
   return (
-    <div className="Selection_div" onClick = {() => onPress() }>
-      <div className = {classOfOptions}>work</div>
-      <div className = {classOfOptions}>personal</div>
+    <div>
+      <select value={select} onChange={(event) => changeCategory(event)}>
+        <option>personal</option>
+        <option>work</option>
+      </select>
     </div>
   );
 }

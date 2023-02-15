@@ -7,8 +7,8 @@ import { useState } from "react";
 
 function App() {
   const [componentDiv, setComponentDiv] = useState([
-    { id: 1, class: "NotesContainer_div_block" },
-    { id: 2, class: "NotesContainer_div_block" },
+    { id: 1, class: "NotesContainer_div_block", value: "" },
+    { id: 2, class: "NotesContainer_div_block", value: "" },
   ]);
 
   function addNewNote() {
@@ -34,17 +34,38 @@ function App() {
     );
   }
 
+  function changeCategory(id, event) {
+   setComponentDiv( componentDiv.map((component) => {
+      console.log(componentDiv);
+
+      if (component.id === id) {
+        return { ...component, value: event.target.value };
+      } else {
+        return component;
+      }
+    }));
+  }
+
   return (
     <div className="App">
       <ButtonComponent onPress={() => addNewNote()}>Add</ButtonComponent>
       {componentDiv.map((component) => (
-        <div id={component.id} className={component.class}>
+        <div
+          id={component.id}
+          className={component.class}
+          style={{
+            backgroundColor: `${component.value === "work" ? "red" : "blue"}`,
+          }}
+        >
           <NotesContainer>
             <InputField />
             <ButtonComponent onPress={() => changeClass(component.id)}>
               Delete
             </ButtonComponent>
-            <Selection  />
+            <Selection
+              value={component.value}
+              changeCategory={(event) => changeCategory(component.id, event)}
+            ></Selection>
           </NotesContainer>
         </div>
       ))}
