@@ -1,7 +1,7 @@
 import "./NotesContainer.css";
 
-export default function NotesContainer({children}) {
+export default function NotesContainer({children, className}) {
   return (
-    <div className = "NotesContainer_div" >{children}</div>
+    <div className = {className} >{children}</div>
   )
 }

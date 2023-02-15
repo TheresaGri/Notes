@@ -1,3 +1,3 @@
-export default function InputField() {
-  return <input type = "text" />;
+export default function InputField({className}) {
+  return <input type = "text" className={className}/>;
 }

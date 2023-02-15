@@ -5,29 +5,44 @@ import ButtonComponent from "./components/ButtonComponent";
 import { useState } from "react";
 
 function App() {
-  const [components, setComponents] = useState([1]);
+
+  const [componentDiv, setComponentDiv] = useState([
+    { id: 1, class: "NotesContainer_div_block" },
+    { id: 2, class: "NotesContainer_div_block" },
+  ]);
 
   function addNewNote() {
-    setComponents([...components, Math.max(...components) + 1]);
+    let arrId = componentDiv.map((component) => component.id);
+    let maxId = Math.max(...arrId);
+    console.log(maxId);
+    setComponentDiv([
+      ...componentDiv,
+      { id: maxId + 1, class: "NotesContainer_div_block" },
+    ]);
   }
 
-  function deleteNote(id) {
+  function changeClass (id) {
     console.log(id);
-    //problem, wenn etwas gelöscht wird, verschiebt sich der array!!!!!
-    let array = components.filter((component) => component !== id);
-    console.log(array);
-    setComponents(array);
-    console.log(components);
-   }
+    setComponentDiv(componentDiv.map((component) => {
+      if(component.id === id)  {
+        return {...component, class: "NotesContainer_div_none"}
+      } else {
+        return component;
+      }
+
+    }))  
+  }
 
   return (
     <div className="App">
       <ButtonComponent onPress={() => addNewNote()}>Add</ButtonComponent>
-      {components.map((component) => (
-        <div id={component}>
+      {componentDiv.map((component) => (
+        <div id={component.id} className = {component.class}>
           <NotesContainer>
             <InputField />
-            <ButtonComponent onPress={() => deleteNote(component)}>
+            <ButtonComponent 
+              onPress={() => changeClass(component.id)}
+            >
               Delete
             </ButtonComponent>
           </NotesContainer>

@@ -1,3 +1,3 @@
-export default function ButtonComponent({ children, onPress }) {
-  return <button onClick={() => onPress()}>{children}</button>;
+export default function ButtonComponent({ children, onPress, className }) {
+  return <button className={className} onClick={() => onPress()}>{children}</button>;
 }
