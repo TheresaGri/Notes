@@ -9,3 +9,7 @@
 .NotesContainer_div_none {
   display: none;
 }
+
+.NotesContainer_div_delete{
+  display: none;
+}

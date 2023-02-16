@@ -18,20 +18,17 @@ function App() {
     console.log(maxId);
     setComponentDiv([
       ...componentDiv,
-      { id: maxId + 1, class: "NotesContainer_div_block" },
+      {
+        id: maxId + 1,
+        class: "NotesContainer_div_block",
+        value: "",
+        inputValue: "",
+      },
     ]);
   }
 
   function changeClass(id) {
-    setComponentDiv(
-      componentDiv.map((component) => {
-        if (component.id === id) {
-          return { ...component, class: "NotesContainer_div_none" };
-        } else {
-          return component;
-        }
-      })
-    );
+    setComponentDiv(componentDiv.filter((component) => component.id !== id));
   }
 
   function changeCategory(id, event) {
@@ -56,10 +53,10 @@ function App() {
         }
       })
     );
-    console.log(componentDiv);
   }
 
   function filterNotes(event) {
+    console.log(componentDiv);
     setComponentDiv(
       componentDiv.map((component) => {
         if (component.inputValue.includes(event.target.value)) {
@@ -77,6 +74,7 @@ function App() {
       <InputFilter onChange={(event) => filterNotes(event)} />
       {componentDiv.map((component) => (
         <div
+          key = {component.id}
           id={component.id}
           className={component.class}
           style={{
